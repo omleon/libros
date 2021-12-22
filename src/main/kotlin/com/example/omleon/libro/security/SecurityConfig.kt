@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @EnableWebSecurity
+
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     @Autowired
     lateinit var gymUserDetailsService: GymUserDetailsService
