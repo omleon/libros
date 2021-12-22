@@ -1,6 +1,7 @@
 package com.example.omleon.libro.controller
 import com.example.omleon.libro.dto.AuthenticationRequest
 import com.example.omleon.libro.dto.AuthenticationResponse
+import com.example.omleon.libro.security.JWTUtil
 import com.example.omleon.libro.service.GymUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -11,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.web.bind.annotation.*
 //import com.example.demo.web.JWTUtil
-import com.example.omleon.libro.security.JWTUtil
 
 @RestController
 @RequestMapping("/login")

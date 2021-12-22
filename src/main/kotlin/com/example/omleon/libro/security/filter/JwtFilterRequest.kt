@@ -1,6 +1,7 @@
 package com.example.omleon.libro.security.filter
-import com.example.omleon.libro.security.JWTUtil
+
 import com.example.omleon.libro.service.GymUserDetailsService
+import com.example.omleon.libro.security.JWTUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -13,33 +14,29 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 @Component
-class JwtFilterRequest {
-    class JwtFilterRequest : OncePerRequestFilter() {
-        @Autowired
-        lateinit var jwtUtil: JWTUtil
+class JwtFilterRequest : OncePerRequestFilter() {
+    @Autowired
+    lateinit var jwtUtil: JWTUtil
 
-        @Autowired
-        lateinit var gymUserDetailsService: GymUserDetailsService
+    @Autowired
+    lateinit var gymUserDetailsService: GymUserDetailsService
 
-        override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
-            val authorizationHeader:String? = request.getHeader("Authorization")
-            authorizationHeader?.let {aut ->
-                aut.startsWith("Bearer").let {
-                    val jwt: String = aut.substring(7)
-                    val username: String = jwtUtil.extractUsername(jwt)
-                    SecurityContextHolder.getContext().authentication ?: run {
-                        val userDetails: UserDetails = gymUserDetailsService.loadUserByUsername(username)
-                        jwtUtil.validateToken(jwt, userDetails).let {
-                            val authToken: UsernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
-                            authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-                            SecurityContextHolder.getContext().authentication = authToken
-                        }
-
+    override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, filterChain: FilterChain) {
+        val authorizationHeader:String? = request.getHeader("Authorization")
+        authorizationHeader?.let {aut ->
+            aut.startsWith("Bearer").let {
+                val jwt: String = aut.substring(7)
+                val username: String = jwtUtil.extractUsername(jwt)
+                SecurityContextHolder.getContext().authentication ?: run {
+                    val userDetails: UserDetails = gymUserDetailsService.loadUserByUsername(username)
+                    jwtUtil.validateToken(jwt, userDetails).let {
+                        val authToken: UsernamePasswordAuthenticationToken = UsernamePasswordAuthenticationToken(userDetails, null, userDetails.authorities)
+                        authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+                        SecurityContextHolder.getContext().authentication = authToken
                     }
                 }
             }
-
-            filterChain.doFilter(request,response)
         }
-}
+        filterChain.doFilter(request,response)
+    }
 }

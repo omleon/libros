@@ -1,5 +1,6 @@
 package com.example.omleon.libro.security
 
+
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -7,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Component
 import java.util.Date
 
-
 @Component
 class JWTUtil {
+
     fun generateToken (userDetails: UserDetails): String{
         //Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody()
         return Jwts.builder().setSubject(userDetails.username)

@@ -1,11 +1,9 @@
 package com.example.omleon.libro.security
-
 import com.example.omleon.libro.security.filter.JwtFilterRequest
 import com.example.omleon.libro.service.GymUserDetailsService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.security.authentication.AuthenticationManager
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
@@ -19,7 +17,7 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
     lateinit var gymUserDetailsService: GymUserDetailsService
 
     @Autowired
-    lateinit var jwtFilterRequest: JwtFilterRequest.JwtFilterRequest
+    lateinit var jwtFilterRequest: JwtFilterRequest
 
     override fun configure(auth: AuthenticationManagerBuilder?) {
         auth?.userDetailsService(gymUserDetailsService)
