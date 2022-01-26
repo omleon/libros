@@ -12,4 +12,6 @@ class Post {
     var titulo: String? = null
     var autor: String? = null
     var fecha: String? = null
+    @Column(name="usuario_id")
+    var usuario_id: Long? = null
 }

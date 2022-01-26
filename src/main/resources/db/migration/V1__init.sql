@@ -5,7 +5,6 @@ CREATE TABLE IF NOT EXISTS usuario (
     crear VARCHAR(45) NULL,
     PRIMARY KEY (id)
 );
-
 CREATE TABLE IF NOT EXISTS post (
     id serial,
     titulo VARCHAR(45) NOT NULL,
@@ -15,15 +14,11 @@ CREATE TABLE IF NOT EXISTS post (
     PRIMARY KEY (id),
     FOREIGN KEY (usuario_id) REFERENCES usuario (id)
 );
-
-
 CREATE TABLE IF NOT EXISTS comentario (
     id serial,
-    fechaPublicacion VARCHAR(45) NOT NULL,
+    fechapublicacion VARCHAR(45) NOT NULL,
     caracteres VARCHAR(45) NULL,
     post_id int,
     PRIMARY KEY (id),
     FOREIGN KEY (post_id) REFERENCES post (id)
 );
-
-
