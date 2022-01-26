@@ -93,25 +93,41 @@ catch(ex: Exception){
     }
     fun validarCedula(x: String):Boolean{
         var suma=0
-        return  if (x.length==9) {
+        return  if (x.length==9)
+        {
             println("Ingrese su cedula")
+
             false
-        }else{
+        }
+        else
+        {
             val a = IntArray(x.length/2)
+
             val b = IntArray(x.length/2)
+
             var c = 0
+
             var d = 1
+
             for (i in 0 until x.length/2){
-                a[1]= x[c].toString().toInt()
+
+                a[1]= x[c].toString().toInt() //<-- esto combierte a entero
+
                 c +=2
+
                 if(1< x.length/2 - 1){
+
                     b[i]=x[d].toString().toInt()
+
                     d +=2
+
                 }
             }
-            for (i in a.indices){
+            for (i in a.indices)
+            {
                 a[i]= a[i]*2
-                if(a[i]>9){
+                if(a[i]>9)
+                {
                     a[i]=a[i]-9
                 }
                 suma=suma+a[i]+b[i]
