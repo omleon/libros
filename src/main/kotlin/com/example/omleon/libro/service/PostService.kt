@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
-import java.lang.Exception
+import kotlin.Exception
+
 @Service
 class PostService {
     @Autowired
@@ -20,11 +21,10 @@ class PostService {
     }
     fun save(post: Post): Post {
         try {
-          if(  post.titulo?.trim()?.isEmpty() == true ) {
-               throw java.lang.Exception("No puede ser vacio")
-          }
-            val response = usuarioRepository.findById(post.id)
-                    ?: throw Exception("El id ${post.id} en post no existe")
+                post.titulo?.takeIf { it.trim().isNotEmpty()}
+                    ?: throw Exception("No debe estar vacio")
+            post.autor?.takeIf { it.trim().isNotEmpty()}
+                ?: throw Exception("No debe estar vacio")
 
             return postRepository.save(post)
         }

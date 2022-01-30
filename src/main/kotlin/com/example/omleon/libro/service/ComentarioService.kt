@@ -16,26 +16,18 @@ class ComentarioService {
         return comentarioRepository.findAll()
     }
     fun save(comentario: Comentario): Comentario {
+        try {
+            comentario.fechapublicacion?.takeIf { it.trim().isNotEmpty()}
+                ?: throw Exception("No debe estar vacio")
+            comentario.fechapublicacion?.takeIf { it.trim().isNotEmpty()}
+                ?: throw Exception("No debe estar vacio")
 
-
-
-
-    try {
-            comentario.fechapublicacion?.trim()?.isEmpty()
-                    ?: throw java.lang.Exception("No puede ser vacio")
-
-            val response = comentarioRepository.findById(comentario.id)
-                    ?: throw Exception("El id ${comentario.id} en post no existe")
-            response.apply {
-                this.caracteres = comentario.caracteres
-            }
             return comentarioRepository.save(comentario)
         }
         catch (ex: Exception) {
             throw ResponseStatusException(
-                    HttpStatus.NOT_FOUND, ex.message, ex)
+                HttpStatus.NOT_FOUND, ex.message, ex)
         }
-
     }
     fun update(comentario: Comentario): Comentario {
         try {

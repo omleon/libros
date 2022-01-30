@@ -15,11 +15,17 @@ class UsuarioService {
     }
 
     fun save(usuario: Usuario): Usuario {
-        if (usuario.comentarios.equals("")) {
-            throw   Exception()
-        }
-        else {
+        try {
+            usuario.nombre?.takeIf { it.trim().isNotEmpty()}
+                ?: throw Exception("No debe estar vacio")
+            usuario.nombre?.takeIf { it.trim().isNotEmpty()}
+                ?: throw Exception("No debe estar vacio")
+
             return usuarioRepository.save(usuario)
+        }
+        catch (ex: Exception) {
+            throw ResponseStatusException(
+                HttpStatus.NOT_FOUND, ex.message, ex)
         }
     }
     fun update(usuario: Usuario): Usuario {
@@ -120,9 +126,9 @@ catch(ex: Exception){
                     b[i]=x[d].toString().toInt()
 
                     d +=2
-
                 }
             }
+
             for (i in a.indices)
             {
                 a[i]= a[i]*2
