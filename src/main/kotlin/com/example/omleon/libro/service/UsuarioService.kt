@@ -108,13 +108,16 @@ catch(ex: Exception){
 
 
 
-    fun validaUsuario(nombre: String?):Boolean{
-        val lista= listOf<String>("Juan","Maria","Victor")
-        for (nombre.equals(lista)){
+        fun validaUsuario(nombre: String): Boolean {
+            for (i in ){
+                if (nombre == i){
+                    return true
+                }
+            }
             return false
         }
-        return true
     }
+
 
 
     fun validarCedula(x: String):Boolean{
