@@ -97,6 +97,26 @@ catch(ex: Exception){
         }
         return response
     }
+
+
+    fun verifyWordd(nombre: String?):Boolean{
+        if (nombre.equals("")) {
+            return false
+        }
+        return true
+    }
+
+
+
+    fun validaUsuario(nombre: String?):Boolean{
+        val lista= listOf<String>("Juan","Maria","Victor")
+        for (nombre.equals(lista)){
+            return false
+        }
+        return true
+    }
+
+
     fun validarCedula(x: String):Boolean{
         var suma=0
         return  if (x.length==9)
@@ -105,6 +125,7 @@ catch(ex: Exception){
 
             false
         }
+
         else
         {
             val a = IntArray(x.length/2)
@@ -138,6 +159,8 @@ catch(ex: Exception){
                 }
                 suma=suma+a[i]+b[i]
             }
+
+
             val aux = suma/10
             val dec = (aux+1)*10
             if(dec-suma ==x[x.length-1].toString()
@@ -145,4 +168,5 @@ catch(ex: Exception){
             )true else suma % 10 == 0 && x[x.length-1]=='0'
         }
     }
+
 }
