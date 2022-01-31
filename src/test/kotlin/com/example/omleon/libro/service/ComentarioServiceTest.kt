@@ -40,4 +40,34 @@ class ComentarioServiceTest {
             comentarioService.save(comentarioMock)
         }
     }
+    @Test
+    fun updateIsCorrect(){
+        Mockito.`when`(comentarioRepository.findById(comentarioMock.id)).thenReturn(comentarioMock)
+        Mockito.`when`(comentarioRepository.save(Mockito.any(Comentario::class.java))).thenReturn(comentarioMock)
+        val response = comentarioService.update(comentarioMock)
+        Assertions.assertEquals(response.id, comentarioMock.id)
+        Assertions.assertEquals(response.fechapublicacion, comentarioMock.fechapublicacion)
+    }
+    @Test
+    fun updateIsFailed(){
+        comentarioMock.apply {
+            fechapublicacion=" "
+        }
+        Mockito.`when`(comentarioRepository.findById(comentarioMock.id)).thenReturn(comentarioMock)
+        Mockito.`when`(comentarioRepository.save(Mockito.any(Comentario::class.java))).thenReturn(comentarioMock)
+        val response = comentarioService.update(comentarioMock)
+        Assertions.assertEquals(response.id, comentarioMock.id)
+        Assertions.assertEquals(response.fechapublicacion, comentarioMock.fechapublicacion)
+    }
+    @Test
+    fun updateIsFailedWhenIdDoesntExist(){
+        comentarioMock.apply {
+            id=2
+        }
+        Mockito.`when`(comentarioRepository.findById(comentarioMock.id)).thenReturn(comentarioMock)
+        Mockito.`when`(comentarioRepository.save(Mockito.any(Comentario::class.java))).thenReturn(comentarioMock)
+        val response = comentarioService.update(comentarioMock)
+        Assertions.assertEquals(response.id, comentarioMock.id)
+        Assertions.assertEquals(response.fechapublicacion, comentarioMock.fechapublicacion)
+    }
 }

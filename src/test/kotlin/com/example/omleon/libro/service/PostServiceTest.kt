@@ -1,6 +1,7 @@
 package com.example.omleon.libro.service
 
 import com.example.omleon.libro.model.Post
+import com.example.omleon.libro.model.Usuario
 import com.example.omleon.libro.repository.PostRepository
 import com.google.gson.Gson
 import org.junit.jupiter.api.Assertions
@@ -40,6 +41,36 @@ class PostServiceTest {
             Mockito.`when`(postRepository.save(Mockito.any(Post::class.java))).thenReturn(postMock)
             postService.save(postMock)
         }
+    }
+    @Test
+    fun updateIsCorrect(){
+        Mockito.`when`(postRepository.findById(postMock.id)).thenReturn(postMock)
+        Mockito.`when`(postRepository.save(Mockito.any(Post::class.java))).thenReturn(postMock)
+        val response = postService.update(postMock)
+        Assertions.assertEquals(response.id, postMock.id)
+        Assertions.assertEquals(response.titulo, postMock.titulo)
+    }
+    @Test
+    fun updateIsFailed(){
+        postMock.apply {
+            titulo=" "
+        }
+        Mockito.`when`(postRepository.findById(postMock.id)).thenReturn(postMock)
+        Mockito.`when`(postRepository.save(Mockito.any(Post::class.java))).thenReturn(postMock)
+        val response = postService.update(postMock)
+        Assertions.assertEquals(response.id, postMock.id)
+        Assertions.assertEquals(response.titulo, postMock.titulo)
+    }
+    @Test
+    fun updateIsFailedWhenIdDoesntExist(){
+        postMock.apply {
+            id=2
+        }
+        Mockito.`when`(postRepository.findById(postMock.id)).thenReturn(postMock)
+        Mockito.`when`(postRepository.save(Mockito.any(Post::class.java))).thenReturn(postMock)
+        val response = postService.update(postMock)
+        Assertions.assertEquals(response.id, postMock.id)
+        Assertions.assertEquals(response.titulo, postMock.titulo)
     }
 }
 /*

@@ -25,8 +25,7 @@ class UsuarioServiceTest {
     @Test
     fun createUsuario(){
 
-        // Mockito.`when`(personRepository.findById(dietMock.person_id)).thenReturn(personMock)
-
+        Mockito.`when`(usuarioRepository.findById(usuarioMock.id)).thenReturn(usuarioMock)
         Mockito.`when`(usuarioRepository.save(Mockito.any(Usuario::class.java))).thenReturn(usuarioMock)
         val response = usuarioService.save(usuarioMock)
         Assertions.assertEquals(response.id, usuarioMock.id)
@@ -40,7 +39,36 @@ class UsuarioServiceTest {
             usuarioService.save(usuarioMock)
         }
     }
-
+    @Test
+    fun updateIsCorrect(){
+        Mockito.`when`(usuarioRepository.findById(usuarioMock.id)).thenReturn(usuarioMock)
+        Mockito.`when`(usuarioRepository.save(Mockito.any(Usuario::class.java))).thenReturn(usuarioMock)
+        val response = usuarioService.update(usuarioMock)
+        Assertions.assertEquals(response.id, usuarioMock.id)
+        Assertions.assertEquals(response.nombre, usuarioMock.nombre)
+    }
+    @Test
+    fun updateIsFailed(){
+        usuarioMock.apply {
+            nombre=" "
+        }
+        Mockito.`when`(usuarioRepository.findById(usuarioMock.id)).thenReturn(usuarioMock)
+        Mockito.`when`(usuarioRepository.save(Mockito.any(Usuario::class.java))).thenReturn(usuarioMock)
+        val response = usuarioService.update(usuarioMock)
+        Assertions.assertEquals(response.id, usuarioMock.id)
+        Assertions.assertEquals(response.nombre, usuarioMock.nombre)
+    }
+    @Test
+    fun updateIsFailedWhenIdDoesntExist(){
+        usuarioMock.apply {
+            id=2
+        }
+        Mockito.`when`(usuarioRepository.findById(usuarioMock.id)).thenReturn(usuarioMock)
+        Mockito.`when`(usuarioRepository.save(Mockito.any(Usuario::class.java))).thenReturn(usuarioMock)
+        val response = usuarioService.update(usuarioMock)
+        Assertions.assertEquals(response.id, usuarioMock.id)
+        Assertions.assertEquals(response.nombre, usuarioMock.nombre)
+    }
 }
 
 /*  @Autowired
